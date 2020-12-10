@@ -5,18 +5,20 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class User(AbstractUser):
-    # WARNING!
-    """
-    Some officially supported features of Crowdbotics Dashboard depend on the initial
-    state of this User model (Such as the creation of superusers using the CLI
-    or password reset in the dashboard). Changing, extending, or modifying this model
-    may lead to unexpected bugs and or behaviors in the automated flows provided
-    by Crowdbotics. Change it at your own risk.
-    """
-
-    # First Name and Last Name do not cover name patterns
-    # around the globe.
-    name = models.CharField(_("Name of User"), blank=True, null=True, max_length=255)
-
-    def get_absolute_url(self):
-        return reverse("users:detail", kwargs={"username": self.username})
+	# WARNING!
+	"""
+	Some officially supported features of Crowdbotics Dashboard depend on the initial
+	state of this User model (Such as the creation of superusers using the CLI
+	or password reset in the dashboard). Changing, extending, or modifying this model
+	may lead to unexpected bugs and or behaviors in the automated flows provided
+	by Crowdbotics. Change it at your own risk.
+	"""
+	
+	# First Name and Last Name do not cover name patterns
+	# around the globe.
+	name = models.CharField(_("Name of User"), blank=True, null=True, max_length=255)
+	phone_number = models.CharField(_("Phone Number"), blank=True, null=True, max_length=25)
+	phone_number_verified = models.BooleanField(default=False)
+	
+	def get_absolute_url(self):
+		return reverse("users:detail", kwargs={"username": self.username})

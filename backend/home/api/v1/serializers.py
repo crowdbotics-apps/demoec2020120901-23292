@@ -17,7 +17,7 @@ User = get_user_model()
 class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'name', 'email', 'password')
+        fields = ('id', 'name', 'email', 'phone_number', 'password', )
         extra_kwargs = {
             'password': {
                 'write_only': True,
@@ -53,7 +53,8 @@ class SignupSerializer(serializers.ModelSerializer):
                 validated_data.get('name'),
                 validated_data.get('email'),
                 'user'
-            ])
+            ]),
+            phone_number=validated_data.get('phone_number')
         )
         user.set_password(validated_data.get('password'))
         user.save()
